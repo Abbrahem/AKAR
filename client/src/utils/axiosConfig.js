@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { useAuthStore } from '../store/authStore';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-
-// Configure axios defaults
-axios.defaults.baseURL = API_URL;
+// Create axios instance
+const api = axios.create({
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
+  timeout: 10000,
+});
 
 // Request interceptor to add auth token
-axios.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token && token !== 'null' && token !== 'undefined') {
@@ -21,7 +21,7 @@ axios.interceptors.request.use(
 );
 
 // Response interceptor to handle auth errors
-axios.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -39,4 +39,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+export default api;

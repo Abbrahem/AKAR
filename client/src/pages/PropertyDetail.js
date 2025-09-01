@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { 
-  HeartIcon, 
-  EyeIcon, 
   MapPinIcon,
   HomeIcon,
   CurrencyDollarIcon,
-  ChatBubbleLeftRightIcon,
+  HeartIcon,
   ShareIcon,
+  ChatBubbleLeftRightIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   XMarkIcon,
-  CheckCircleIcon,
-  BanknotesIcon,
-  CalendarDaysIcon
+  EyeIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
 import { useAuthStore } from '../store/authStore';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
 import toast from 'react-hot-toast';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
 import SimpleMap from '../components/maps/SimpleMap';
 
 const PropertyDetail = () => {

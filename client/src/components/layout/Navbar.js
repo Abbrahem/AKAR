@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import {
-  Bars3Icon,
-  XMarkIcon,
   BuildingOfficeIcon,
   UserIcon,
   ChatBubbleLeftRightIcon,
@@ -22,23 +20,6 @@ const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuthStore();
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Fetch notifications for authenticated users
-  const { data: notifications } = useQuery(
-    'notifications',
-    () => axios.get('/notifications').then(res => res.data.notifications),
-    {
-      enabled: isAuthenticated && !!user,
-      refetchInterval: 30000, // Refetch every 30 seconds
-      retry: false,
-      onError: (error) => {
-        if (error.response?.status === 401) {
-          // Ignore 401 errors for notifications
-          console.log('User not authenticated for notifications');
-        }
-      }
-    }
-  );
 
   // Fetch unread messages count
   const { data: unreadData } = useQuery(
@@ -66,16 +47,6 @@ const Navbar = () => {
 
   const unreadCount = unreadData?.count || 0;
 
-  const navigation = [
-    { name: 'الرئيسية', href: '/', icon: HomeIcon },
-    { name: 'العقارات', href: '/properties', icon: BuildingOfficeIcon },
-    ...(isAuthenticated ? [
-      { name: 'إضافة عقار', href: '/add-property', icon: PlusIcon },
-      { name: 'المحادثات', href: '/chat', icon: ChatBubbleLeftRightIcon, badge: unreadCount },
-      { name: 'لوحة التحكم', href: '/dashboard', icon: UserIcon }
-    ] : [])
-  ];
-
   // Public navigation items
   const publicNavItems = [
     { name: 'الرئيسية', href: '/', icon: HomeIcon },
@@ -95,20 +66,24 @@ const Navbar = () => {
     <>
       <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-14 sm:h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 rtl:space-x-reverse">
-              <BuildingOfficeIcon className="w-8 h-8 text-primary-600" />
-              <span className="text-xl font-bold text-gray-900">Akar</span>
+              <BuildingOfficeIcon className="w-6 h-6 sm:w-8 sm:h-8 text-primary-600" />
+              <span className="text-lg sm:text-xl font-bold text-gray-900">Akar</span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-8 rtl:space-x-reverse">
               {publicNavItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    isActive(item.href) 
+                      ? 'text-primary-600 border-b-2 border-primary-600' 
+                      : 'text-gray-700 hover:text-primary-600'
+                  }`}
                 >
                   {item.name}
                 </Link>
@@ -116,26 +91,27 @@ const Navbar = () => {
             </div>
 
             {/* Right side - Auth buttons or User menu */}
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
+            <div className="flex items-center space-x-3 sm:space-x-4 rtl:space-x-reverse">
               {!isAuthenticated ? (
                 <>
                   <Link
                     to="/login"
-                    className="hidden md:block text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
+                    className="hidden sm:block text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200"
                   >
                     تسجيل الدخول
                   </Link>
                   <Link
                     to="/register"
-                    className="bg-primary-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors duration-200"
+                    className="bg-primary-600 text-white px-3 sm:px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-700 transition-colors duration-200"
                   >
-                    إنشاء حساب
+                    <span className="hidden sm:inline">إنشاء حساب</span>
+                    <span className="sm:hidden">تسجيل</span>
                   </Link>
                 </>
               ) : (
-                <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                <div className="flex items-center space-x-3 sm:space-x-4 rtl:space-x-reverse">
                   {/* Navigation Items for Authenticated Users - Desktop Only */}
-                  <div className="hidden md:flex items-center space-x-6 rtl:space-x-reverse">
+                  <div className="hidden lg:flex items-center space-x-6 rtl:space-x-reverse">
                     {authenticatedNavItems.map((item) => (
                       <Link
                         key={item.name}
@@ -157,47 +133,55 @@ const Navbar = () => {
                   <div className="relative hidden md:block">
                     <button
                       onClick={() => setIsOpen(!isOpen)}
-                      className="flex items-center space-x-2 rtl:space-x-reverse text-gray-700 hover:text-primary-600 focus:outline-none"
+                      className="flex items-center space-x-2 rtl:space-x-reverse text-gray-700 hover:text-primary-600 focus:outline-none transition-colors duration-200"
                     >
                       <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
                         <span className="text-sm font-medium text-primary-700">
                           {user?.name?.charAt(0)?.toUpperCase()}
                         </span>
                       </div>
-                      <span className="text-sm font-medium">{user?.name}</span>
+                      <span className="text-sm font-medium hidden lg:block">{user?.name}</span>
                     </button>
 
                     {/* Dropdown Menu */}
                     {isOpen && (
-                      <div className="absolute right-0 rtl:right-auto rtl:left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
-                        <Link
-                          to="/profile"
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      <>
+                        {/* Backdrop */}
+                        <div 
+                          className="fixed inset-0 z-40" 
                           onClick={() => setIsOpen(false)}
-                        >
-                          <UserIcon className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                          الملف الشخصي
-                        </Link>
+                        />
                         
-                        {user?.role === 'admin' && (
+                        <div className="absolute right-0 rtl:right-auto rtl:left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50">
                           <Link
-                            to="/admin"
-                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                            to="/profile"
+                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                             onClick={() => setIsOpen(false)}
                           >
-                            <Squares2X2Icon className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                            لوحة الإدارة
+                            <UserIcon className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
+                            الملف الشخصي
                           </Link>
-                        )}
-                        
-                        <button
-                          onClick={handleLogout}
-                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                        >
-                          <ArrowRightOnRectangleIcon className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
-                          تسجيل الخروج
-                        </button>
-                      </div>
+                          
+                          {user?.role === 'admin' && (
+                            <Link
+                              to="/admin"
+                              className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              <Squares2X2Icon className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
+                              لوحة الإدارة
+                            </Link>
+                          )}
+                          
+                          <button
+                            onClick={handleLogout}
+                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                          >
+                            <ArrowRightOnRectangleIcon className="w-4 h-4 mr-2 rtl:mr-0 rtl:ml-2" />
+                            تسجيل الخروج
+                          </button>
+                        </div>
+                      </>
                     )}
                   </div>
 
@@ -211,10 +195,8 @@ const Navbar = () => {
                   </div>
                 </div>
               )}
-
             </div>
           </div>
-
         </div>
       </nav>
       

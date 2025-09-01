@@ -6,14 +6,10 @@ import {
   PhotoIcon, 
   XMarkIcon,
   MapPinIcon,
-  HomeIcon,
-  CurrencyDollarIcon
+  HomeIcon
 } from '@heroicons/react/24/outline';
 import axios from 'axios';
-import { useAuthStore } from '../store/authStore';
-import LoadingSpinner from '../components/ui/LoadingSpinner';
 import toast from 'react-hot-toast';
-import SimpleMap from '../components/maps/SimpleMap';
 
 const AddProperty = () => {
   const [images, setImages] = useState([]);
@@ -24,7 +20,6 @@ const AddProperty = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors }
   } = useForm({
     defaultValues: {
@@ -147,24 +142,24 @@ const AddProperty = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">إضافة عقار جديد</h1>
-          <p className="text-gray-600 mt-2">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">إضافة عقار جديد</h1>
+          <p className="text-gray-600 mt-2 text-sm sm:text-base">
             أضف تفاصيل عقارك وسيتم مراجعته من قبل فريقنا قبل النشر
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 sm:space-y-8">
           {/* Basic Information */}
-          <div className="card p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+          <div className="card p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
               <HomeIcon className="w-5 h-5 mr-2" />
               المعلومات الأساسية
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/* Title */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -233,12 +228,12 @@ const AddProperty = () => {
                       min: { value: 1, message: 'السعر يجب أن يكون أكبر من صفر' }
                     })}
                     type="number"
-                    className={`input rounded-l-none ${errors.price ? 'border-red-300' : ''}`}
+                    className={`input rounded-l-none flex-1 ${errors.price ? 'border-red-300' : ''}`}
                     placeholder="0"
                   />
                   <select
                     {...register('currency')}
-                    className="input rounded-r-none border-r-0 w-20"
+                    className="input rounded-r-none border-r-0 w-20 flex-shrink-0"
                   >
                     <option value="USD">USD</option>
                     <option value="EUR">EUR</option>
@@ -264,12 +259,12 @@ const AddProperty = () => {
                       min: { value: 1, message: 'المساحة يجب أن تكون أكبر من صفر' }
                     })}
                     type="number"
-                    className={`input rounded-l-none ${errors['area.value'] ? 'border-red-300' : ''}`}
+                    className={`input rounded-l-none flex-1 ${errors['area.value'] ? 'border-red-300' : ''}`}
                     placeholder="0"
                   />
                   <select
                     {...register('area.unit')}
-                    className="input rounded-r-none border-r-0 w-20"
+                    className="input rounded-r-none border-r-0 w-20 flex-shrink-0"
                   >
                     <option value="sqm">م²</option>
                     <option value="sqft">قدم²</option>
@@ -282,7 +277,7 @@ const AddProperty = () => {
             </div>
 
             {/* Description */}
-            <div className="mt-6">
+            <div className="mt-4 sm:mt-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 الوصف *
               </label>
@@ -297,15 +292,15 @@ const AddProperty = () => {
               />
               {errors.description && (
                 <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-              )}
+                )}
             </div>
           </div>
 
           {/* Property Details */}
-          <div className="card p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6">تفاصيل العقار</h2>
+          <div className="card p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">تفاصيل العقار</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
               {/* Bedrooms */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -344,11 +339,11 @@ const AddProperty = () => {
             </div>
 
             {/* Features */}
-            <div className="mt-6">
+            <div className="mt-4 sm:mt-6">
               <label className="block text-sm font-medium text-gray-700 mb-4">
                 المميزات
               </label>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
                 {features.map(feature => (
                   <label key={feature.key} className="flex items-center">
                     <input
@@ -364,13 +359,13 @@ const AddProperty = () => {
           </div>
 
           {/* Location */}
-          <div className="card p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+          <div className="card p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
               <MapPinIcon className="w-5 h-5 mr-2" />
               الموقع
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               {/* Address */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -428,7 +423,7 @@ const AddProperty = () => {
                   {...register('location.detailedAddress', { required: 'العنوان المفصل مطلوب' })}
                   type="text"
                   className={`input ${errors['location.detailedAddress'] ? 'border-red-300' : ''}`}
-                  placeholder="مثال: شارع الملك فهد، حي الملز، الرياض، المملكة العربية السعودية - سيتم تحديد الموقع على الخريطة تلقائياً"
+                  placeholder="مثال: شارع الملك فهد، حي الملز، الرياض، المملكة العربية السعودية"
                 />
                 {errors['location.detailedAddress'] && (
                   <p className="mt-1 text-sm text-red-600">{errors['location.detailedAddress'].message}</p>
@@ -438,20 +433,20 @@ const AddProperty = () => {
           </div>
 
           {/* Images */}
-          <div className="card p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+          <div className="card p-4 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
               <PhotoIcon className="w-5 h-5 mr-2" />
               صور العقار
             </h2>
 
             {/* Image Upload */}
-            <div className="mb-6">
+            <div className="mb-4 sm:mb-6">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 رفع الصور * (حد أقصى 10 صور)
               </label>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-400 transition-colors duration-200">
-                <PhotoIcon className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600 mb-2">اسحب الصور هنا أو انقر للاختيار</p>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-6 text-center hover:border-primary-400 transition-colors duration-200">
+                <PhotoIcon className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-2 sm:mb-4" />
+                <p className="text-gray-600 mb-2 text-sm sm:text-base">اسحب الصور هنا أو انقر للاختيار</p>
                 <input
                   type="file"
                   multiple
@@ -462,7 +457,7 @@ const AddProperty = () => {
                 />
                 <label
                   htmlFor="image-upload"
-                  className="btn-primary cursor-pointer"
+                  className="btn-primary cursor-pointer inline-block"
                 >
                   اختيار الصور
                 </label>
@@ -471,20 +466,20 @@ const AddProperty = () => {
 
             {/* Image Previews */}
             {imagePreviews.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4">
                 {imagePreviews.map((preview, index) => (
                   <div key={index} className="relative group">
                     <img
                       src={preview}
                       alt={`Preview ${index + 1}`}
-                      className="w-full h-32 object-cover rounded-lg"
+                      className="w-full h-24 sm:h-32 object-cover rounded-lg"
                     />
                     <button
                       type="button"
                       onClick={() => removeImage(index)}
-                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      className="absolute top-1 right-1 sm:top-2 sm:right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >
-                      <XMarkIcon className="w-4 h-4" />
+                      <XMarkIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                     </button>
                   </div>
                 ))}
@@ -493,18 +488,18 @@ const AddProperty = () => {
           </div>
 
           {/* Submit Button */}
-          <div className="flex justify-end space-x-4 rtl:space-x-reverse">
+          <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 rtl:sm:space-x-reverse">
             <button
               type="button"
               onClick={() => navigate('/dashboard')}
-              className="btn-outline"
+              className="btn-outline order-2 sm:order-1"
             >
               إلغاء
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed order-1 sm:order-2"
             >
               {isSubmitting ? 'جاري الإضافة...' : 'إضافة العقار'}
             </button>

@@ -202,11 +202,14 @@ const Register = () => {
               />
               <label htmlFor="accept-terms" className="mr-2 block text-sm text-gray-700">
                 أوافق على{' '}
-                <a href="#" className="text-primary-600 hover:text-primary-500">
-                  الشروط والأحكام
-                </a>{' '}
+                <a
+                  href="/terms"
+                  className="text-primary-600 hover:text-primary-500 transition-colors duration-200"
+                >
+                  شروط الاستخدام
+                </a>
                 و{' '}
-                <a href="#" className="text-primary-600 hover:text-primary-500">
+                <a href="/privacy" className="text-primary-600 hover:text-primary-500">
                   سياسة الخصوصية
                 </a>
               </label>

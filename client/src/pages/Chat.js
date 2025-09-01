@@ -94,11 +94,11 @@ const Chat = () => {
   };
 
   const renderConversationsList = () => (
-    <div className="h-full">
-      <div className="p-4 border-b border-gray-200">
+    <div className="h-full flex flex-col">
+      <div className="p-4 border-b border-gray-200 bg-white">
         <h2 className="text-lg font-semibold text-gray-900">المحادثات</h2>
       </div>
-      <div className="overflow-y-auto">
+      <div className="flex-1 overflow-y-auto">
         {conversations?.length === 0 ? (
           <div className="p-4 text-center text-gray-500">
             <p>لا توجد محادثات</p>
@@ -112,7 +112,7 @@ const Chat = () => {
                 className="block p-4 hover:bg-gray-50 transition-colors duration-200"
               >
                 <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                  <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-sm font-medium text-primary-700">
                       {conversation.otherParticipant.name?.charAt(0)?.toUpperCase()}
                     </span>
@@ -122,7 +122,7 @@ const Chat = () => {
                       <p className="text-sm font-medium text-gray-900 truncate">
                         {conversation.otherParticipant.name}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-gray-500 flex-shrink-0 mr-2">
                         {formatDistanceToNow(new Date(conversation.lastMessage.createdAt), {
                           addSuffix: true,
                           locale: ar
@@ -137,7 +137,7 @@ const Chat = () => {
                     </p>
                   </div>
                   {conversation.unreadCount > 0 && (
-                    <div className="w-5 h-5 bg-primary-600 text-white text-xs rounded-full flex items-center justify-center">
+                    <div className="w-5 h-5 bg-primary-600 text-white text-xs rounded-full flex items-center justify-center flex-shrink-0">
                       {conversation.unreadCount}
                     </div>
                   )}
@@ -172,14 +172,14 @@ const Chat = () => {
               <ArrowLeftIcon className="w-5 h-5" />
             </button>
             
-            <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
               <span className="text-sm font-medium text-primary-700">
                 {messagesData?.messages?.[0]?.receiver?.name?.charAt(0)?.toUpperCase() ||
                  messagesData?.messages?.[0]?.sender?.name?.charAt(0)?.toUpperCase()}
               </span>
             </div>
-            <div>
-              <h3 className="text-lg font-medium text-gray-900">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg font-medium text-gray-900 truncate">
                 {messagesData?.messages?.[0]?.receiver?._id === user._id 
                   ? messagesData?.messages?.[0]?.sender?.name 
                   : messagesData?.messages?.[0]?.receiver?.name}
@@ -199,18 +199,18 @@ const Chat = () => {
             messagesData?.messages?.map((msg) => (
               <div
                 key={msg._id}
-                className={`flex ${msg.sender._id === user._id ? 'justify-start' : 'justify-end'}`}
+                className={`flex ${msg.sender._id === user._id ? 'justify-end' : 'justify-start'}`}
               >
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                     msg.sender._id === user._id
-                      ? 'bg-gray-200 text-gray-900'
-                      : 'bg-blue-600 text-white'
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-gray-200 text-gray-900'
                   }`}
                 >
-                  <p className="text-sm">{msg.content}</p>
+                  <p className="text-sm break-words">{msg.content}</p>
                   <p className={`text-xs mt-1 ${
-                    msg.sender._id === user._id ? 'text-gray-500' : 'text-primary-100'
+                    msg.sender._id === user._id ? 'text-primary-100' : 'text-gray-500'
                   }`}>
                     {formatDistanceToNow(new Date(msg.createdAt), {
                       addSuffix: true,
@@ -229,13 +229,13 @@ const Chat = () => {
           <form onSubmit={handleSendMessage} className="flex items-center space-x-2 rtl:space-x-reverse">
             <button
               type="button"
-              className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+              className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200 flex-shrink-0"
             >
               <PhotoIcon className="w-5 h-5" />
             </button>
             <button
               type="button"
-              className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+              className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200 flex-shrink-0"
             >
               <FaceSmileIcon className="w-5 h-5" />
             </button>
@@ -249,7 +249,7 @@ const Chat = () => {
             <button
               type="submit"
               disabled={!message.trim() || sendMessageMutation.isLoading}
-              className="p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+              className="p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex-shrink-0"
             >
               <PaperAirplaneIcon className="w-5 h-5" />
             </button>

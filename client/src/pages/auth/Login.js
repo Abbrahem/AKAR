@@ -118,10 +118,10 @@ const Login = () => {
 
               <div className="text-sm">
                 <a
-                  href="#"
-                  className="font-medium text-primary-600 hover:text-primary-500 transition-colors duration-200"
+                  href="/register"
+                  className="text-primary-600 hover:text-primary-500 transition-colors duration-200"
                 >
-                  نسيت كلمة المرور؟
+                  إنشاء حساب جديد
                 </a>
               </div>
             </div>

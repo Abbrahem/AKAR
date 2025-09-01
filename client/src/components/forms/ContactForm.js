@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { PhoneIcon, EnvelopeIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { 
+  PhoneIcon
+} from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
 const ContactForm = () => {
@@ -118,7 +120,7 @@ const ContactForm = () => {
           disabled={isSubmitting}
           className="inline-flex items-center px-8 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <ChatBubbleLeftRightIcon className="w-5 h-5 mr-2" />
+          {/* <ChatBubbleLeftRightIcon className="w-5 h-5 mr-2" /> */}
           {isSubmitting ? 'جاري الإرسال...' : 'إرسال عبر الواتساب'}
         </button>
         

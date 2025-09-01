@@ -1,19 +1,43 @@
 {
-  "name": "real-estate-marketplace",
-  "version": "1.0.0",
-  "description": "Complete Real Estate Marketplace Platform",
-  "main": "server/index.js",
+  "name": "akar-real-estate",
+  "version": "2.0.0",
+  "description": "منصة شاملة للعقارات مع نظام محادثات متكامل",
+  "main": "index.js",
   "scripts": {
+    "install-all": "npm install && cd client && npm install && cd ../server && npm install",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
     "build": "cd client && npm run build",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+    "start": "cd server && npm start && cd ../client && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["real-estate", "marketplace", "react", "nodejs"],
-  "author": "Real Estate Team",
+  "keywords": [
+    "real-estate",
+    "property",
+    "marketplace",
+    "chat",
+    "react",
+    "nodejs",
+    "mongodb",
+    "arabic",
+    "rtl"
+  ],
+  "author": "Akar Team",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.2"
-  }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/akar-real-estate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/akar-real-estate/issues"
+  },
+  "homepage": "https://github.com/your-username/akar-real-estate#readme"
 }
