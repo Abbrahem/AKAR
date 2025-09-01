@@ -6,7 +6,11 @@ const useSocketStore = create((set, get) => ({
   isConnected: false,
 
   connect: (userId) => {
-    const socket = io(process.env.REACT_APP_API_URL || 'http://localhost:5000');
+    const socketURL = process.env.REACT_APP_API_URL || 
+      (process.env.NODE_ENV === 'production' 
+        ? 'https://your-backend-url.herokuapp.com' 
+        : 'http://localhost:5000');
+    const socket = io(socketURL);
     
     socket.on('connect', () => {
       console.log('Socket connected');

@@ -4,9 +4,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "set GENERATE_SOURCEMAP=false && react-app-rewired start",
-    "build": "set GENERATE_SOURCEMAP=false && react-app-rewired build",
-    "test": "react-app-rewired test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "dependencies": {

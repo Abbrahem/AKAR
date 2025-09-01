@@ -24,7 +24,11 @@ const Chat = () => {
 
   // Initialize socket connection
   useEffect(() => {
-    const newSocket = io(process.env.REACT_APP_API_URL || 'http://localhost:5000');
+    const socketURL = process.env.REACT_APP_API_URL || 
+      (process.env.NODE_ENV === 'production' 
+        ? 'https://your-backend-url.herokuapp.com' 
+        : 'http://localhost:5000');
+    const newSocket = io(socketURL);
     setSocket(newSocket);
 
     newSocket.emit('join', user._id);

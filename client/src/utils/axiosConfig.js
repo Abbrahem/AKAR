@@ -1,13 +1,17 @@
 import axios from 'axios';
 
-// Create axios instance
-const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000',
-  timeout: 10000,
-});
+// Set the base URL based on environment
+const baseURL = process.env.REACT_APP_API_URL || 
+  (process.env.NODE_ENV === 'production' 
+    ? 'https://your-backend-url.herokuapp.com' 
+    : 'http://localhost:5000');
+
+// Configure axios defaults
+axios.defaults.baseURL = baseURL;
+axios.defaults.timeout = 10000;
 
 // Request interceptor to add auth token
-api.interceptors.request.use(
+axios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token && token !== 'null' && token !== 'undefined') {
@@ -21,7 +25,7 @@ api.interceptors.request.use(
 );
 
 // Response interceptor to handle auth errors
-api.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -39,4 +43,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default axios;
