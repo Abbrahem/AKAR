@@ -1,26 +1,19 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    },
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
+  "buildCommand": "cd client && npm run build",
+  "outputDirectory": "client/build",
+  "functions": {
+    "api/*.js": {
+      "runtime": "@vercel/node@3.0.7"
     }
-  ],
+  },
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/api/index.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/client/build/index.html"
+      "source": "/api/health",
+      "destination": "/api/health.js"
     }
   ]
 }
