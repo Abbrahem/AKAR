@@ -1,22 +1,26 @@
 {
   "version": 2,
-  "buildCommand": "cd client && npm install && npm run build",
-  "outputDirectory": "client/build",
-  "installCommand": "npm install",
-  "framework": null,
-  "functions": {
-    "api/*.js": {
-      "runtime": "@vercel/node@3.0.7"
-    }
-  },
-  "rewrites": [
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api"
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    },
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
     }
   ],
-  "env": {
-    "GENERATE_SOURCEMAP": "false",
-    "REACT_APP_API_URL": "https://akar-three.vercel.app"
-  }
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/build/$1"
+    }
+  ]
 }
