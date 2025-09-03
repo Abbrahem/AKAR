@@ -3,7 +3,7 @@
   "outputDirectory": "client/build",
   "functions": {
     "api/*.js": {
-      "runtime": "@vercel/node@latest"
+      "runtime": "@vercel/node@20.x"
     }
   },
   "rewrites": [
