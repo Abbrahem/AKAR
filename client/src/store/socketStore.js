@@ -8,7 +8,7 @@ const useSocketStore = create((set, get) => ({
   connect: (userId) => {
     const socketURL = process.env.REACT_APP_API_URL || 
       (process.env.NODE_ENV === 'production' 
-        ? 'https://your-backend-url.herokuapp.com' 
+        ? 'https://akar-three.vercel.app' 
         : 'http://localhost:5000');
     const socket = io(socketURL);
     

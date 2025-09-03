@@ -3,7 +3,7 @@ import axios from 'axios';
 // Set the base URL based on environment
 const baseURL = process.env.REACT_APP_API_URL || 
   (process.env.NODE_ENV === 'production' 
-    ? 'https://your-backend-url.herokuapp.com' 
+    ? 'https://akar-three.vercel.app/api' 
     : 'http://localhost:5000');
 
 // Configure axios defaults

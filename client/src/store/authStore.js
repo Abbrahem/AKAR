@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 const API_URL = process.env.REACT_APP_API_URL || 
   (process.env.NODE_ENV === 'production' 
-    ? 'https://your-backend-url.herokuapp.com/api' 
+    ? 'https://akar-three.vercel.app/api' 
     : 'http://localhost:5000/api');
 
 // Configure axios defaults
