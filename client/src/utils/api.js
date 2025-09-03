@@ -3,7 +3,7 @@ import { useAuthStore } from '../store/authStore';
 
 // Create axios instance
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:5000/api',
+  baseURL: process.env.REACT_APP_API_URL || 'https://akar-three.vercel.app/api',
   timeout: 10000,
 });
 
