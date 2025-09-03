@@ -60,19 +60,19 @@ const Home = () => {
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
               ابحث عن عقارك المثالي
-            </h1>
+          </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100">
               منصة شاملة للعقارات تتيح لك العثور على أفضل الفرص
-            </p>
+          </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/properties"
-                className="inline-flex items-center px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-300 text-lg shadow-lg"
-              >
+            <Link
+              to="/properties"
+              className="inline-flex items-center px-10 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-300 text-lg shadow-lg"
+            >
                 <EyeIcon className="w-6 h-6 mr-3" />
                 تصفح العقارات
-              </Link>
-              
+            </Link>
+            
               <Link
                 to="/register"
                 className="inline-flex items-center px-10 py-4 bg-white text-blue-600 font-semibold rounded-xl border-2 border-white hover:bg-blue-50 transform hover:scale-105 transition-all duration-300 text-lg shadow-lg"
@@ -165,11 +165,11 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
                   <UserIcon className="w-6 h-6 text-blue-600" />
-                </div>
+          </div>
                 <div>
                   <h4 className="font-semibold text-gray-900">أحمد محمد</h4>
                   <p className="text-gray-600 text-sm">مشتري عقار</p>
@@ -181,9 +181,9 @@ const Home = () => {
               <div className="flex items-center">
                 {[1, 2, 3, 4, 5].map((star) => (
                   <StarIcon key={star} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-            </div>
+            ))}
+          </div>
+        </div>
 
             <div className="bg-white rounded-2xl shadow-xl p-8">
               <div className="flex items-center mb-4">
@@ -193,7 +193,7 @@ const Home = () => {
                 <div>
                   <h4 className="font-semibold text-gray-900">فاطمة علي</h4>
                   <p className="text-gray-600 text-sm">بائعة عقار</p>
-                </div>
+          </div>
               </div>
               <p className="text-gray-700 mb-4">
                 "بعت عقاري خلال أسبوع واحد! المنصة ساعدتني في الوصول لعدد كبير من المشترين."
@@ -209,11 +209,11 @@ const Home = () => {
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mr-4">
                   <UserIcon className="w-6 h-6 text-purple-600" />
-                </div>
+              </div>
                 <div>
                   <h4 className="font-semibold text-gray-900">محمد حسن</h4>
                   <p className="text-gray-600 text-sm">مستثمر</p>
-                </div>
+              </div>
               </div>
               <p className="text-gray-700 mb-4">
                 "أفضل منصة عقارية استخدمتها. البحث والفلترة متقدمة جداً والنتائج دقيقة."
@@ -243,13 +243,13 @@ const Home = () => {
               <EyeIcon className="w-5 h-5 mr-2" />
               تصفح العقارات
             </Link>
-            <Link
-              to="/register"
+          <Link
+            to="/register"
               className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white hover:text-blue-600 transition-colors duration-200"
-            >
+          >
               <UserGroupIcon className="w-5 h-5 mr-2" />
               إنشاء حساب
-            </Link>
+          </Link>
           </div>
         </div>
       </section>
